@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Take the ASRS-v1.1 ADHD screening test - a quick 6-question self-assessment tool to identify potential ADHD symptoms in adults.">
+    <title>ADHD Self-Assessment Test - ASRS-v1.1 Screening Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --highlight-color: #fbbf24;
+            --success-color: #10b981;
+            --warning-color: #ef4444;
+            --shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 32px 24px;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .intro h2 {
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .intro p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .disclaimer {
+            background: #fef3c7;
+            border-left: 4px solid var(--highlight-color);
+            padding: 12px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .start-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            background: #1d4ed8;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border-color);
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            background: white;
+        }
+
+        .option.selected {
+            background: #eff6ff;
+            border-color: var(--primary-color);
+        }
+
+        .option.scoring-zone {
+            position: relative;
+        }
+
+        .option.scoring-zone::after {
+            content: '•';
+            position: absolute;
+            right: 16px;
+            color: var(--highlight-color);
+            font-size: 20px;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option span {
+            font-size: 16px;
+            flex: 1;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-button.prev {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .nav-button.prev:hover:not(:disabled) {
+            background: var(--bg-color);
+        }
+
+        .nav-button.next {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-button.next:hover:not(:disabled) {
+            background: #1d4ed8;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-positive {
+            color: var(--warning-color);
+        }
+
+        .score-negative {
+            color: var(--success-color);
+        }
+
+        .interpretation {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .interpretation h3 {
+            margin-bottom: 12px;
+        }
+
+        .resources {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .resources h3 {
+            margin-bottom: 12px;
+        }
+
+        .resources ul {
+            text-align: left;
+            list-style-position: inside;
+            line-height: 1.8;
+        }
+
+        .reset-button {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 32px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .reset-button:hover {
+            background: var(--bg-color);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .question-text {
+                font-size: 16px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .navigation, .reset-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Adult ADHD Self-Report Scale (ASRS-v1.1)</h1>
+            <p>6-Question Screening Tool</p>
+        </div>
+
+        <div class="content" id="content">
+            <!-- Intro Screen -->
+            <div id="intro-screen" class="intro">
+                <h2>Quick ADHD Screening Test</h2>
+                <p>This scientifically validated screening tool can help identify potential ADHD symptoms in adults.</p>
+                <p><strong>Takes only 2-3 minutes to complete</strong></p>
+                
+                <div class="disclaimer">
+                    <strong>Important:</strong> This is a screening tool, not a diagnosis. Only a qualified healthcare professional can diagnose ADHD. The ASRS-v1.1 has a sensitivity of 69% and specificity of 99.5%.
+                </div>
+                
+                <p>Answer each question based on how you have felt and conducted yourself over the past 6 months.</p>
+                
+                <button class="start-button" onclick="startTest()">Begin Assessment</button>
+            </div>
+
+            <!-- Question Screen -->
+            <div id="question-screen" class="hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                
+                <div class="question-number" id="question-number">Question 1 of 6</div>
+                
+                <h2 class="question-text" id="question-text"></h2>
+                
+                <div class="answer-options" id="answer-options"></div>
+                
+                <div class="navigation">
+                    <button class="nav-button prev" id="prev-button" onclick="previousQuestion()">Previous</button>
+                    <button class="nav-button next" id="next-button" onclick="nextQuestion()" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="results hidden">
+                <h2>Your Results</h2>
+                
+                <div class="score-display" id="score-display"></div>
+                
+                <div class="interpretation" id="interpretation"></div>
+                
+                <div class="disclaimer">
+                    Remember: This screening tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider about any concerns.
+                </div>
+                
+                <div class="resources">
+                    <h3>Next Steps & Resources</h3>
+                    <ul>
+                        <li>Consider discussing these results with your primary care physician</li>
+                        <li>Seek evaluation from a psychiatrist or psychologist specializing in ADHD</li>
+                        <li>Keep a journal of symptoms to share with healthcare providers</li>
+                        <li>Learn more about ADHD from reputable sources like CHADD or the NIMH</li>
+                    </ul>
+                </div>
+                
+                <button class="reset-button" onclick="resetTest()">Take Test Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test data
+        const questions = [
+            {
+                id: 1,
+                text: "How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?",
+                scoringThreshold: 2 // Index 2 = "Sometimes" or higher
+            },
+            {
+                id: 2,
+                text: "How often do you have difficulty getting things in order when you have to do a task that requires organization?",
+                scoringThreshold: 2
+            },
+            {
+                id: 3,
+                text: "How often do you have problems remembering appointments or obligations?",
+                scoringThreshold: 2
+            },
+            {
+                id: 4,
+                text: "When you have a task that requires a lot of thought, how often do you avoid or delay getting started?",
+                scoringThreshold: 3 // Index 3 = "Often" or higher
+            },
+            {
+                id: 5,
+                text: "How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?",
+                scoringThreshold: 3
+            },
+            {
+                id: 6,
+                text: "How often do you feel overly active and compelled to do things, like you were driven by a motor?",
+                scoringThreshold: 3
+            }
+        ];
+
+        const answerOptions = [
+            "Never",
+            "Rarely", 
+            "Sometimes",
+            "Often",
+            "Very Often"
+        ];
+
+        // State management
+        let currentQuestionIndex = 0;
+        let answers = {};
+
+        // Initialize
+        function initializeTest() {
+            // Load any saved answers from sessionStorage
+            const savedAnswers = sessionStorage.getItem('adhd-test-answers');
+            if (savedAnswers) {
+                answers = JSON.parse(savedAnswers);
+            }
+        }
+
+        // Start the test
+        function startTest() {
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('question-screen').classList.remove('hidden');
+            displayQuestion(0);
+        }
+
+        // Display current question
+        function displayQuestion(index) {
+            const question = questions[index];
+            
+            // Update progress
+            document.getElementById('progress-fill').style.width = `${((index + 1) / questions.length) * 100}%`;
+            document.getElementById('question-number').textContent = `Question ${index + 1} of ${questions.length}`;
+            document.getElementById('question-text').textContent = question.text;
+            
+            // Generate answer options
+            const optionsContainer = document.getElementById('answer-options');
+            optionsContainer.innerHTML = '';
+            
+            answerOptions.forEach((option, optionIndex) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                
+                // Add scoring zone indicator for relevant options
+                if (optionIndex >= question.scoringThreshold) {
+                    optionDiv.classList.add('scoring-zone');
+                }
+                
+                const label = document.createElement('label');
+                label.style.display = 'contents';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `q${question.id}`;
+                input.value = optionIndex;
+                input.onclick = () => selectAnswer(question.id, optionIndex);
+                
+                // Check if this answer was previously selected
+                if (answers[question.id] === optionIndex) {
+                    input.checked = true;
+                    optionDiv.classList.add('selected');
+                }
+                
+                const span = document.createElement('span');
+                span.textContent = option;
+                
+                label.appendChild(input);
+                label.appendChild(span);
+                optionDiv.appendChild(label);
+                
+                optionDiv.onclick = () => {
+                    input.click();
+                };
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        // Handle answer selection
+        function selectAnswer(questionId, value) {
+            answers[questionId] = value;
+            sessionStorage.setItem('adhd-test-answers', JSON.stringify(answers));
+            
+            // Update UI
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.option')[value].classList.add('selected');
+            
+            // Enable next button
+            document.getElementById('next-button').disabled = false;
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            } else {
+                showResults();
+            }
+        }
+
+        // Navigate to previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            
+            prevButton.disabled = currentQuestionIndex === 0;
+            
+            // Check if current question is answered
+            const currentQuestion = questions[currentQuestionIndex];
+            nextButton.disabled = answers[currentQuestion.id] === undefined;
+            
+            // Change "Next" to "Submit" on last question
+            if (currentQuestionIndex === questions.length - 1) {
+                nextButton.textContent = 'Submit';
+            } else {
+                nextButton.textContent = 'Next';
+            }
+        }
+
+        // Calculate and show results
+        function showResults() {
+            const score = calculateScore();
+            
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+            
+            // Display score
+            const scoreDisplay = document.getElementById('score-display');
+            scoreDisplay.textContent = `${score} / 6`;
+            scoreDisplay.className = score >= 4 ? 'score-display score-positive' : 'score-display score-negative';
+            
+            // Display interpretation
+            const interpretation = document.getElementById('interpretation');
+            if (score >= 4) {
+                interpretation.innerHTML = `
+                    <h3>Potential ADHD Indicators Detected</h3>
+                    <p>Your responses suggest you may benefit from a professional ADHD assessment. 
+                    This screening tool has identified ${score} out of 6 patterns consistent with ADHD symptoms.</p>
+                    <p><strong>What this means:</strong> With a score of ${score}/6, there's approximately an 87.5% chance 
+                    you may have ADHD, based on this tool's sensitivity (69%) and specificity (99.5%).</p>
+                    <p>Consider discussing these results with a healthcare provider who can provide a comprehensive evaluation.</p>
+                `;
+            } else {
+                interpretation.innerHTML = `
+                    <h3>No Strong ADHD Indicators</h3>
+                    <p>Your responses (${score}/6) do not strongly indicate ADHD symptoms at this time.</p>
+                    <p>However, if you have ongoing concerns about attention, focus, or hyperactivity that affect your 
+                    daily life, consider discussing them with a healthcare provider. This screening tool may miss 
+                    approximately 31% of ADHD cases.</p>
+                `;
+            }
+        }
+
+        // Calculate score based on answers
+        function calculateScore() {
+            let score = 0;
+            questions.forEach(question => {
+                const answer = answers[question.id];
+                if (answer !== undefined && answer >= question.scoringThreshold) {
+                    score++;
+                }
+            });
+            return score;
+        }
+
+        // Reset the test
+        function resetTest() {
+            currentQuestionIndex = 0;
+            answers = {};
+            sessionStorage.removeItem('adhd-test-answers');
+            
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('intro-screen').classList.remove('hidden');
+        }
+
+        // Initialize on page load
+        initializeTest();
+    </script>
+</body>
+</html>
