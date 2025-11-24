@@ -3,8 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Take the ASRS-v1.1 ADHD screening test - a quick 6-question self-assessment tool to identify potential ADHD symptoms in adults.">
-    <title>ADHD Self-Assessment Test - ASRS-v1.1 Screening Tool</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online ADHD test for adults. Take the scientifically validated ASRS-v1.1 screening tool in 2 minutes. Identify potential ADHD symptoms with 69% sensitivity and 99.5% specificity.">
+    <meta name="keywords" content="ADHD test, adult ADHD, ASRS test, ADHD screening, attention deficit, hyperactivity disorder, ADHD symptoms, free ADHD test">
+    <meta name="author" content="ADHD Screening">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Free ADHD Test - Adult ADHD Screening (ASRS-v1.1)">
+    <meta property="og:description" content="Take the scientifically validated ADHD screening test. Quick, free, and private. Get results in 2 minutes.">
+    <meta property="og:url" content="https://yoursite.com">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free ADHD Test - Adult ADHD Screening">
+    <meta name="twitter:description" content="Take the scientifically validated ADHD screening test in 2 minutes.">
+    
+    <title>Free ADHD Test for Adults - ASRS-v1.1 Screening Tool | Get Results in 2 Minutes</title>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+         crossorigin="anonymous"></script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MedicalWebPage",
+        "name": "ADHD Self-Assessment Test",
+        "description": "Free online ADHD screening test using the ASRS-v1.1 tool",
+        "medicalAudience": {
+            "@type": "MedicalAudience",
+            "audienceType": "Adults"
+        }
+    }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -29,14 +74,104 @@
             color: var(--text-color);
             background: var(--bg-color);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
         }
 
-        .container {
+        /* Cookie Consent Banner */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e293b;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .cookie-consent.show {
+            display: block;
+        }
+
+        .cookie-consent button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            margin-left: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cookie-consent a {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* Ad Containers */
+        .ad-container {
+            margin: 20px auto;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-label {
+            font-size: 10px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        /* Top Banner Ad */
+        .top-ad {
+            max-width: 728px;
+            margin: 0 auto 20px;
+        }
+
+        /* Sidebar Layout for Desktop */
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .main-content {
+            flex: 1;
             max-width: 600px;
+        }
+
+        .sidebar {
+            width: 300px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-ad {
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 968px) {
+            .page-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                display: none; /* Hide sidebar ads on mobile */
+            }
+            
+            .main-content {
+                max-width: 100%;
+            }
+        }
+
+        .container {
             width: 100%;
             background: white;
             border-radius: 12px;
@@ -165,18 +300,6 @@
             border-color: var(--primary-color);
         }
 
-        .option.scoring-zone {
-            position: relative;
-        }
-
-        .option.scoring-zone::after {
-            content: '•';
-            position: absolute;
-            right: 16px;
-            color: var(--highlight-color);
-            font-size: 20px;
-        }
-
         .option input[type="radio"] {
             margin-right: 12px;
             width: 20px;
@@ -296,10 +419,27 @@
             display: none;
         }
 
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 640px) {
             .container {
                 border-radius: 0;
-                min-height: 100vh;
             }
             
             .header h1 {
@@ -308,6 +448,10 @@
             
             .question-text {
                 font-size: 16px;
+            }
+
+            .top-ad {
+                max-width: 320px;
             }
         }
 
@@ -320,79 +464,148 @@
                 box-shadow: none;
             }
             
-            .navigation, .reset-button {
+            .navigation, .reset-button, .ad-container, .cookie-consent, footer {
                 display: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Adult ADHD Self-Report Scale (ASRS-v1.1)</h1>
-            <p>6-Question Screening Tool</p>
-        </div>
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookie-consent">
+        <p>
+            We use cookies and ads to provide a free service. By continuing, you accept our 
+            <a href="privacy-policy.html">Privacy Policy</a> and 
+            <a href="terms.html">Terms of Service</a>.
+            <button onclick="acceptCookies()">Accept</button>
+        </p>
+    </div>
 
-        <div class="content" id="content">
-            <!-- Intro Screen -->
-            <div id="intro-screen" class="intro">
-                <h2>Quick ADHD Screening Test</h2>
-                <p>This scientifically validated screening tool can help identify potential ADHD symptoms in adults.</p>
-                <p><strong>Takes only 2-3 minutes to complete</strong></p>
-                
-                <div class="disclaimer">
-                    <strong>Important:</strong> This is a screening tool, not a diagnosis. Only a qualified healthcare professional can diagnose ADHD. The ASRS-v1.1 has a sensitivity of 69% and specificity of 99.5%.
-                </div>
-                
-                <p>Answer each question based on how you have felt and conducted yourself over the past 6 months.</p>
-                
-                <button class="start-button" onclick="startTest()">Begin Assessment</button>
-            </div>
-
-            <!-- Question Screen -->
-            <div id="question-screen" class="hidden">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-                
-                <div class="question-number" id="question-number">Question 1 of 6</div>
-                
-                <h2 class="question-text" id="question-text"></h2>
-                
-                <div class="answer-options" id="answer-options"></div>
-                
-                <div class="navigation">
-                    <button class="nav-button prev" id="prev-button" onclick="previousQuestion()">Previous</button>
-                    <button class="nav-button next" id="next-button" onclick="nextQuestion()" disabled>Next</button>
-                </div>
-            </div>
-
-            <!-- Results Screen -->
-            <div id="results-screen" class="results hidden">
-                <h2>Your Results</h2>
-                
-                <div class="score-display" id="score-display"></div>
-                
-                <div class="interpretation" id="interpretation"></div>
-                
-                <div class="disclaimer">
-                    Remember: This screening tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider about any concerns.
-                </div>
-                
-                <div class="resources">
-                    <h3>Next Steps & Resources</h3>
-                    <ul>
-                        <li>Consider discussing these results with your primary care physician</li>
-                        <li>Seek evaluation from a psychiatrist or psychologist specializing in ADHD</li>
-                        <li>Keep a journal of symptoms to share with healthcare providers</li>
-                        <li>Learn more about ADHD from reputable sources like CHADD or the NIMH</li>
-                    </ul>
-                </div>
-                
-                <button class="reset-button" onclick="resetTest()">Take Test Again</button>
-            </div>
+    <!-- Top Banner Ad -->
+    <div class="top-ad ad-container">
+        <div>
+            <div class="ad-label">Advertisement</div>
+            <!-- AdSense Banner Ad (728x90) -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"></ins>
         </div>
     </div>
+
+    <div class="page-wrapper">
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container">
+                <div class="header">
+                    <h1>Adult ADHD Self-Report Scale (ASRS-v1.1)</h1>
+                    <p>6-Question Screening Tool</p>
+                </div>
+
+                <div class="content" id="content">
+                    <!-- Intro Screen -->
+                    <div id="intro-screen" class="intro">
+                        <h2>Quick ADHD Screening Test</h2>
+                        <p>This scientifically validated screening tool can help identify potential ADHD symptoms in adults.</p>
+                        <p><strong>Takes only 2-3 minutes to complete</strong></p>
+                        
+                        <div class="disclaimer">
+                            <strong>Important:</strong> This is a screening tool, not a diagnosis. Only a qualified healthcare professional can diagnose ADHD. The ASRS-v1.1 has a sensitivity of 69% and specificity of 99.5%.
+                        </div>
+                        
+                        <p>Answer each question based on how you have felt and conducted yourself over the past 6 months.</p>
+                        
+                        <button class="start-button" onclick="startTest()">Begin Assessment</button>
+                    </div>
+
+                    <!-- Question Screen -->
+                    <div id="question-screen" class="hidden">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        
+                        <div class="question-number" id="question-number">Question 1 of 6</div>
+                        
+                        <h2 class="question-text" id="question-text"></h2>
+                        
+                        <div class="answer-options" id="answer-options"></div>
+                        
+                        <div class="navigation">
+                            <button class="nav-button prev" id="prev-button" onclick="previousQuestion()">Previous</button>
+                            <button class="nav-button next" id="next-button" onclick="nextQuestion()" disabled>Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Results Screen -->
+                    <div id="results-screen" class="results hidden">
+                        <h2>Your Results</h2>
+                        
+                        <div class="score-display" id="score-display"></div>
+                        
+                        <div class="interpretation" id="interpretation"></div>
+                        
+                        <!-- Ad on Results Page -->
+                        <div class="ad-container">
+                            <div>
+                                <div class="ad-label">Advertisement</div>
+                                <ins class="adsbygoogle"
+                                     style="display:inline-block;width:300px;height:250px"
+                                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                                     data-ad-slot="XXXXXXXXXX"></ins>
+                            </div>
+                        </div>
+                        
+                        <div class="disclaimer">
+                            Remember: This screening tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider about any concerns.
+                        </div>
+                        
+                        <div class="resources">
+                            <h3>Next Steps & Resources</h3>
+                            <ul>
+                                <li>Consider discussing these results with your primary care physician</li>
+                                <li>Seek evaluation from a psychiatrist or psychologist specializing in ADHD</li>
+                                <li>Keep a journal of symptoms to share with healthcare providers</li>
+                                <li>Learn more about ADHD from reputable sources like CHADD or the NIMH</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="reset-button" onclick="resetTest()">Take Test Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Ads (Desktop Only) -->
+        <aside class="sidebar">
+            <div class="sidebar-ad ad-container">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:250px"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"></ins>
+                </div>
+            </div>
+            <div class="sidebar-ad ad-container">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:600px"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"></ins>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            <a href="privacy-policy.html">Privacy Policy</a> | 
+            <a href="terms.html">Terms of Service</a>
+        </p>
+        <p>&copy; 2024 ADHD Screening Test. For informational purposes only.</p>
+    </footer>
 
     <script>
         // Test data
@@ -400,7 +613,7 @@
             {
                 id: 1,
                 text: "How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?",
-                scoringThreshold: 2 // Index 2 = "Sometimes" or higher
+                scoringThreshold: 2
             },
             {
                 id: 2,
@@ -415,7 +628,7 @@
             {
                 id: 4,
                 text: "When you have a task that requires a lot of thought, how often do you avoid or delay getting started?",
-                scoringThreshold: 3 // Index 3 = "Often" or higher
+                scoringThreshold: 3
             },
             {
                 id: 5,
@@ -437,47 +650,62 @@
             "Very Often"
         ];
 
-        // State management
         let currentQuestionIndex = 0;
         let answers = {};
 
-        // Initialize
+        // Cookie consent
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookie-consent');
+            if (!consent) {
+                document.getElementById('cookie-consent').classList.add('show');
+            } else {
+                loadAds();
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'true');
+            document.getElementById('cookie-consent').classList.remove('show');
+            loadAds();
+        }
+
+        function loadAds() {
+            // Load AdSense ads
+            const ads = document.querySelectorAll('.adsbygoogle');
+            ads.forEach(ad => {
+                if (!ad.getAttribute('data-ad-status')) {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            });
+        }
+
         function initializeTest() {
-            // Load any saved answers from sessionStorage
             const savedAnswers = sessionStorage.getItem('adhd-test-answers');
             if (savedAnswers) {
                 answers = JSON.parse(savedAnswers);
             }
+            checkCookieConsent();
         }
 
-        // Start the test
         function startTest() {
             document.getElementById('intro-screen').classList.add('hidden');
             document.getElementById('question-screen').classList.remove('hidden');
             displayQuestion(0);
         }
 
-        // Display current question
         function displayQuestion(index) {
             const question = questions[index];
             
-            // Update progress
             document.getElementById('progress-fill').style.width = `${((index + 1) / questions.length) * 100}%`;
             document.getElementById('question-number').textContent = `Question ${index + 1} of ${questions.length}`;
             document.getElementById('question-text').textContent = question.text;
             
-            // Generate answer options
             const optionsContainer = document.getElementById('answer-options');
             optionsContainer.innerHTML = '';
             
             answerOptions.forEach((option, optionIndex) => {
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'option';
-                
-                // Add scoring zone indicator for relevant options
-                if (optionIndex >= question.scoringThreshold) {
-                    optionDiv.classList.add('scoring-zone');
-                }
                 
                 const label = document.createElement('label');
                 label.style.display = 'contents';
@@ -488,7 +716,6 @@
                 input.value = optionIndex;
                 input.onclick = () => selectAnswer(question.id, optionIndex);
                 
-                // Check if this answer was previously selected
                 if (answers[question.id] === optionIndex) {
                     input.checked = true;
                     optionDiv.classList.add('selected');
@@ -508,24 +735,19 @@
                 optionsContainer.appendChild(optionDiv);
             });
             
-            // Update navigation buttons
             updateNavigationButtons();
         }
 
-        // Handle answer selection
         function selectAnswer(questionId, value) {
             answers[questionId] = value;
             sessionStorage.setItem('adhd-test-answers', JSON.stringify(answers));
             
-            // Update UI
             document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
             document.querySelectorAll('.option')[value].classList.add('selected');
             
-            // Enable next button
             document.getElementById('next-button').disabled = false;
         }
 
-        // Navigate to next question
         function nextQuestion() {
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
@@ -535,7 +757,6 @@
             }
         }
 
-        // Navigate to previous question
         function previousQuestion() {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
@@ -543,18 +764,15 @@
             }
         }
 
-        // Update navigation buttons
         function updateNavigationButtons() {
             const prevButton = document.getElementById('prev-button');
             const nextButton = document.getElementById('next-button');
             
             prevButton.disabled = currentQuestionIndex === 0;
             
-            // Check if current question is answered
             const currentQuestion = questions[currentQuestionIndex];
             nextButton.disabled = answers[currentQuestion.id] === undefined;
             
-            // Change "Next" to "Submit" on last question
             if (currentQuestionIndex === questions.length - 1) {
                 nextButton.textContent = 'Submit';
             } else {
@@ -562,19 +780,16 @@
             }
         }
 
-        // Calculate and show results
         function showResults() {
             const score = calculateScore();
             
             document.getElementById('question-screen').classList.add('hidden');
             document.getElementById('results-screen').classList.remove('hidden');
             
-            // Display score
             const scoreDisplay = document.getElementById('score-display');
             scoreDisplay.textContent = `${score} / 6`;
             scoreDisplay.className = score >= 4 ? 'score-display score-positive' : 'score-display score-negative';
             
-            // Display interpretation
             const interpretation = document.getElementById('interpretation');
             if (score >= 4) {
                 interpretation.innerHTML = `
@@ -594,9 +809,20 @@
                     approximately 31% of ADHD cases.</p>
                 `;
             }
+
+            // Load ads on results page
+            loadAds();
+            
+            // Track conversion in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'test_completed', {
+                    'event_category': 'engagement',
+                    'event_label': 'ADHD Test',
+                    'value': score
+                });
+            }
         }
 
-        // Calculate score based on answers
         function calculateScore() {
             let score = 0;
             questions.forEach(question => {
@@ -608,7 +834,6 @@
             return score;
         }
 
-        // Reset the test
         function resetTest() {
             currentQuestionIndex = 0;
             answers = {};
@@ -619,7 +844,6 @@
             document.getElementById('intro-screen').classList.remove('hidden');
         }
 
-        // Initialize on page load
         initializeTest();
     </script>
 </body>
